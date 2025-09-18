@@ -3,7 +3,7 @@ kind: CronJob
 metadata:
   name: report-daily
 spec:
-  schedule: "0 1 * * *"          # 매일 01:00
+  schedule: "*/1 * * * *"          # 매일 01:00
   timeZone: "Asia/Seoul"          # 시간대 고정(권장)
   concurrencyPolicy: Forbid        # 이전 회차가 남아 있으면 새 회차 '건너뜀'
   startingDeadlineSeconds: 600     # 10분 이내 놓친 회차는 뒤늦게라도 실행

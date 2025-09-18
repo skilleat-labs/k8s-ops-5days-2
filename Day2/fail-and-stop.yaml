@@ -1,0 +1,14 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: fail-and-stop
+spec:
+  backoffLimit: 1          # 1번만 재시도하고 실패로 끝
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+      - name: boom
+        image: busybox:1.36
+        command: ["sh","-c","echo 'failing...'; exit 1"]
+
