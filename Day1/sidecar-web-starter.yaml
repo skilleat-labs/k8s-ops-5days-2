@@ -6,6 +6,9 @@ metadata:
   labels:
     app: sidecar-web-logs
 spec:
+  volumes:
+  - name: shared-logs
+    emptyDir: {}
   containers:
   - name: app
     image: busybox
@@ -15,5 +18,13 @@ spec:
     - >
       echo "Live logs (press F5 to refresh)<br>" > /var/www/index.html;
       while true; do echo "$(date) writing logs<br>" >> /var/www/index.html; sleep 2; done
-    # 아직 볼륨 마운트 없음 (학습자가 추가해야 함)
-
+    volumeMounts:
+    - name : shared-logs
+      mountPath: /var/www
+  - name : log-web
+    image: nginx:1.25
+    ports:
+    - containerPort: 80 
+    volumeMounts:
+    - name: shared-logs
+      mountPath: /usr/share/nginx/html
