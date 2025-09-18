@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: no-tolerate-spot
+  namespace: day3
+spec:
+  containers:
+  - name: app
+    image: busybox
+    command: ["sh", "-c", "echo 'Running on spot node'; sleep 3600"]
+

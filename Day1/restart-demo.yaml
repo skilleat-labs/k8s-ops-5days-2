@@ -1,0 +1,13 @@
+# restart-demo.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: restart-demo
+  namespace: pod-deepdive
+spec:
+  restartPolicy: OnFailure
+  containers:
+  - name: worker
+    image: busybox
+    command: ["sh", "-c", "echo 'Failing...'; exit 0"]
+

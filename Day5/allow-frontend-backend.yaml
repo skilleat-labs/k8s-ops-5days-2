@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-frontend-to-backend
+  namespace: default
+spec:
+  podSelector:
+    matchLabels:
+      app: backend        # backend Pod에 정책 적용
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - podSelector:
+        matchLabels:
+          app: frontend   # frontend Pod에서 오는 트래픽만 허용
+

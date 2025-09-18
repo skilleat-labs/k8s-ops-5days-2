@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: resource-demo
+  namespace: day4
+spec:
+  containers:
+  - name: stress
+    image: polinux/stress
+    command: ["stress"]
+    args: ["--vm", "1", "--vm-bytes", "200M", "--vm-hang", "1"]
+    resources:
+      requests:
+        cpu: "200m"                           # 최소 0.2 CPU 보장 (1000m = CPU 1코어)
+        memory: "100Mi"                 # 최소 100Mi 메모리 보장 (1Gi = 1024Mi)
+      limits:
+        cpu: "500m"                           # 최대 0.5 CPU까지 사용 가능
+        memory: "150Mi"                 # 최대 150Mi 메모리 제한
+
+

@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: ds-log
+  namespace: day2-ops
+spec:
+  selector:
+    matchLabels:
+      app: log-agent
+  template:
+    metadata:
+      labels:
+        app: log-agent
+    spec:
+      containers:
+      - name: log-agent
+        image: busybox
+        command: ["sh","-c","while true; do d=$(date); echo \"$d\" | tee -a /var/log/ds.log; sleep 10; done"]
+        volumeMounts:
+        - name: varlog
+          mountPath: /var/log
+      volumes:
+      - name: varlog
+        emptyDir: {}

@@ -1,0 +1,27 @@
+# starter.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: team-a-db
+  namespace: team-a
+  labels:
+    app: db
+spec:
+  containers:
+  - name: mysql
+    image: mysql:8
+    resources: {}   # 아직 Request/Limit 없음
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: team-b-web
+  namespace: team-b
+  labels:
+    app: web
+spec:
+  containers:
+  - name: nginx
+    image: nginx:1.25
+    resources: {}   # 아직 Request/Limit 없음
+

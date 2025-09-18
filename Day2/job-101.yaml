@@ -1,0 +1,17 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: job-101
+spec:
+  completions: 3                 # 총 3번 '성공' 모으기
+  parallelism: 2                 # 동시에 2개까지 실행
+  backoffLimit: 2                # (실패 시) 최대 2번 재시도
+  ttlSecondsAfterFinished: 120   # 끝난 뒤 120초 후 자동 정리
+  template:
+    spec:
+      restartPolicy: Never       # 실패하면 '새 Pod'로 재시도
+      containers:
+      - name: worker
+        image: busybox:1.36
+        command: ["sh","-c","echo START $(date); sleep 2; echo DONE; exit 0"]
+

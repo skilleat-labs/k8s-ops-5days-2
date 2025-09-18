@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: bad-image
+  namespace: pod-deepdive
+spec:
+  containers:
+  - name: web
+    image: nginx:1.25-typo    # 존재하지 않는 태그(의도적 오류)
+    ports:
+    - containerPort: 80
+
